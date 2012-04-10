@@ -1,0 +1,17 @@
+= render "shared/navigation"
+
+%h3 Search Results
+
+%ul
+  - @players.each do |player|
+    %li
+      = link_to player.name, player_path(player)
+      &nbsp;
+      %em
+        = player.pos
+        (#{player.team})
+      %strong
+        - unless player.fantasy_team.nil?
+          = link_to player.fantasy_team.name, team_path(player.fantasy_team)
+
+= render "shared/footer"

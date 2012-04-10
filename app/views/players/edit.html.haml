@@ -1,0 +1,10 @@
+%h1= @player.name
+
+= form_for @player, url: player_path(@player) do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :team
+  = f.text_field :team
+  = f.label :pos
+  = f.text_field :eligible_pos
+  = f.submit "Update Player"

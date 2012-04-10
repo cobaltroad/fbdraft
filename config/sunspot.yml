@@ -1,0 +1,23 @@
+production:
+  solr:
+    hostname: localhost
+    port: 8983
+    log_level: WARNING
+
+development: &development
+  solr:
+    hostname: localhost
+    port: 8982
+    log_level: INFO
+
+al:
+  <<: *development
+
+nl:
+  <<: *development
+
+test:
+  solr:
+    hostname: localhost
+    port: 8981
+    log_level: WARNING

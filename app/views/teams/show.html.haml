@@ -1,0 +1,99 @@
+%h1= @team.name
+%h3= @team.owner
+
+%table.table.table-condensed
+  %thead
+    %tr
+      %td{colspan: 3}
+        %em Hitters
+      - HITTER_LABELS.each do |label|
+        %td{width:"50"}
+          %strong= label
+  - %w(1B 2B SS 3B OF C UT CO MI).each do |position|
+    - roster_spots = @team.find_roster_spot(position)
+    - roster_spots.each do |roster_spot|
+      - team_view = roster_spot.team_view
+      %tr
+        %td= team_view[:position]
+        %td{width: "150"}= link_to team_view[:name], player_path(team_view[:player_id])
+        %td{width: "80"}= team_view[:contract]
+        - HITTER_STATS.each do |stat|
+          %td= team_view[:projections][stat]
+  %tr
+    %td
+    %td
+    %td
+      %em Totals
+    - HITTER_STATS.each do |stat|
+      %td{width:"50"}
+        %span{style: "border-top: 1px dotted"}
+          %em= @team.hitter_totals[stat]
+  %tr
+    %td
+    %td
+    %td
+      %em Target
+    - Hitter::TARGETS.each do |stat|
+      %td
+        %em= stat
+
+  %thead
+    %tr
+      %td{colspan: 3}
+        %em Pitchers
+      - PITCHER_LABELS.each do |label|
+        %td{width:"50"}
+          %strong= label
+  - @team.pitchers.each do |roster_spot|
+    - team_view = roster_spot.team_view
+    %tr
+      %td= team_view[:position]
+      %td= link_to team_view[:name], player_path(team_view[:player_id])
+      %td= team_view[:contract]
+      - PITCHER_STATS.each do |stat|
+        %td= team_view[:projections][stat]
+  %tr
+    %td
+    %td
+    %td
+      %em Totals
+    - PITCHER_STATS.each do |stat|
+      %td
+        %span{style: "border-top: 1px dotted"}
+          %em= @team.pitcher_totals[stat]
+  %tr
+    %td
+    %td
+    %td
+      %em Target
+    - Pitcher::TARGETS.each do |stat|
+      %td
+        %em= stat
+
+%fieldset
+  %legend Finances
+  %table
+    %tr
+      %td Max Salary
+      %td $#{Team::MAXSALARY}
+    %tr
+      %td Total Salary
+      %td $#{@team.total_salary}
+    %tr
+      %td Cap Room
+      %td $#{Team::MAXSALARY - @team.total_salary}
+    %tr
+      %td Positions Remaining
+      %td #{@team.positions_remaining}
+    %tr
+      %td Max Bid
+      %td $#{@team.max_bid}
+
+%table
+  %tr
+    %td{colspan: 2}
+      %em Reserves
+  %tr
+    - @team.reserves.each do |reserve|
+      %td= link_to reserve.name, player_path(reserve.player_id)
+      %td #{reserve.contract}-#{reserve.salary}

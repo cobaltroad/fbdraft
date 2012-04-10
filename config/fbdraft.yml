@@ -1,0 +1,60 @@
+hitter:
+  - ab: AB
+  - avg: AVG
+  - obp: OBP
+  - slg: SLG
+  - r: Runs
+  - h: Hits
+  - 2b: 2B
+  - 3b: 3B
+  - hr: HR
+  - rbi: RBI
+  - bb: BB
+  - so: SO
+  - sb: SB
+  - cs: CS
+pitcher:
+  - g: G
+  - gs: GS
+  - ip: IP
+  - w: W
+  - l: L
+  - sv: Saves
+  - era: ERA
+  - k: K
+  - whip: WHIP
+  - walk: Walks
+  - ha: Hits
+  - er: ERs
+  - k9: "K/9"
+  - bb9: "BB/9"
+hitter_rating:
+  - avg
+  - r
+  - hr
+  - rbi
+  - sb
+pitcher_rating:
+  - w
+  - sv
+  - era
+  - k
+  - whip
+hitter_ratio:
+  - avg
+  - obp
+  - slg
+pitcher_ratio:
+  - era
+  - whip
+  - k9
+  - bb9
+roster_size:
+  al: 23
+  nl: 25
+salary_cap:
+  al: 260
+  nl: 280
+league_name:
+  al: 12 Angry Men
+  nl: Lawnboys League

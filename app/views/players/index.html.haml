@@ -1,0 +1,6 @@
+= render "shared/navigation"
+
+- unless @players.blank?
+  %h1= params[:type].try(:titleize)
+
+  = render partial: "playertable", locals: { players: @players, type: params[:type], pos: params[:pos] }

@@ -1,0 +1,25 @@
+%h1 Projected Standings
+
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th{width:"150"} Team Name
+      %th{width:"150"} Owner
+      - HITTER_RATING_STATS.each do |stat|
+        %th{colspan:2} #{stat.upcase}
+      - PITCHER_RATING_STATS.each do |stat|
+        %th{colspan:2} #{stat.upcase}
+  - @teams.each do |team|
+    %tr{class: cycle('even','odd')}
+      %td= link_to team.name, team_path(team)
+      %td= team.owner
+      - HITTER_RATING_STATS.each do |stat|
+        %td{width:"35"}
+          #{team.send("proj_#{stat}")}
+        %td{width:"30"}
+          %em #{team.send("rank_#{stat}")}
+      - PITCHER_RATING_STATS.each do |stat|
+        %td{width:"35"}
+          #{team.send("proj_#{stat}")}
+        %td{width:"30"}
+          %em #{team.send("rank_#{stat}")}

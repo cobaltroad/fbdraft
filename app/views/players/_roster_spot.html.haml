@@ -1,0 +1,8 @@
+= form_tag({ action: action }, class: "well form-inline" ) do
+  = label_tag "Salary"
+  = text_field        :roster_spot, :contract, value: roster_spot.contract, class: "span1"
+  %div.input-prepend
+    <span class="add-on">$</span>#{text_field :roster_spot, :salary, value: roster_spot.salary, class: "span1"}
+  = select            :roster_spot, :position, player.eligible_pos_options, { selected: roster_spot.position }, { class: "span1" }
+  = collection_select :roster_spot, :fantasy_team_id, Team.all, :id, :owner, { include_blank: true, selected: roster_spot.fantasy_team_id }
+  = submit_tag "Assign Player", class: "btn"

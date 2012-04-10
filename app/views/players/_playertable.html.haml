@@ -1,0 +1,50 @@
+-#This partial relies on the following locals:
+-#  players: an array of @player objects
+-#  type:    a string key to be used for hash keying as well as sorting
+
+- column_hash = { hitters: Hash[HITTER_LABELS.zip(HITTER_STATS)], pitchers: Hash[PITCHER_LABELS.zip(PITCHER_STATS)] }
+- rating_hash = { hitters: HITTER_RATING_STATS, pitchers: PITCHER_RATING_STATS }
+- ratio_hash = { hitters: [1000.0, 3, "avg", "slg", "obp"], pitchers: [100.0, 2, "era", "whip", "k9", "bb9"]}
+
+- key = type.try(:to_sym)
+
+- columns = column_hash[key]
+- ratings = rating_hash[key]
+- ratios = ratio_hash[key]
+
+%table.table.table-condensed
+  %tr
+    %th= link_to "Name", type: type, pos: pos, sort: "name"
+    %th= link_to "Team", type: type, pos: pos, sort: "team"
+    %th= link_to "Pos", type: type, pos: pos, sort: "pos"
+
+    - columns.each do |label, stat|
+      %th{width: "45"}= link_to label, type: type, pos: pos, sort: "proj_#{stat}"
+
+    %th= link_to "$", type: type, pos: pos
+
+  - players.each do |player|
+    %tr
+      %td= link_to player.name, player_path(player)
+      %td= player.team
+      %td= player.eligible_pos
+
+      - columns.each do |label, stat|
+        - proj = player.send("proj_#{stat}".to_sym)
+        - if ratios.include?(stat)
+          - proj = sprintf("%.#{ratios[1]}f",proj/ratios[0])
+
+        - if ratings.include?(stat)
+          %td{style: "border: 1px dotted"}
+            - norm = player.send("norm_#{stat}".to_sym)
+            %abbr{title: norm}= proj
+        - else
+          %td{style: "color: #bbbbbb"}
+            = proj
+
+      %td{style: "border: 1px dotted"}
+        %abbr{title: player.norm_sum}
+          %em= player.norm_value.round(0)
+
+- if players.length > 1
+  = paginate players

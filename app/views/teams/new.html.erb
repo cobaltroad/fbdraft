@@ -1,0 +1,7 @@
+<h1>New <%= Rails.env.upcase %> Team</h1>
+
+<%= form_for @team do |f| %>
+  <p><%= f.label :name %>&nbsp;<%= f.text_field :name %></p>
+  <p><%= f.label :owner %>&nbsp;<%= f.text_field :owner %></p>
+  <p><%= f.submit %></p>
+<% end %>

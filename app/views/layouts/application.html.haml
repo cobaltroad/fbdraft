@@ -1,0 +1,51 @@
+!!! html
+%html
+  %head
+    %title
+      #{Rails.env.upcase} Auction
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  %body
+    %div.navbar.navbar-fixed-top
+      %div.navbar-inner
+        %div.container
+          = link_to LEAGUE_NAME, root_path, class: "brand"
+          %ul.nav
+            %li
+              = link_to "Hitter Projections", players_path(type: "hitters")
+            %li
+              = link_to "Pitcher Projections", players_path(type: "pitchers")
+            %li
+              = link_to "Depth Charts", "#"
+            %li
+              = link_to "Closers", "#"
+            %li
+              = link_to "Prospects", "#"
+
+          = form_tag({action: "index", controller: "players"}, method: :get, class: "pull-right navbar-search") do |f|
+            = text_field_tag :q, nil, class: "search-query", placeholder: "Player Search"
+
+
+    %div.row
+      %div.span3
+        %ul.nav.nav-list
+          %li.nav-header League
+          %li
+            = link_to teams_path do
+              %i.icon-list
+              Projected Standings
+          %li.nav-header Teams
+          - Team.by_rank(descending: true).each do |team|
+            %li
+              = link_to team_path(team) do
+                %i.icon-user
+                = team.owner
+                %br
+                %i.icon-shopping-cart
+                #{team.positions_remaining} | $#{team.max_bid}
+
+
+      %div.span12
+        = yield

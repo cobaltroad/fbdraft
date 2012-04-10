@@ -1,0 +1,15 @@
+%h3= @player.name
+
+= render partial: "playertable", locals: { players: [@player], type: @player.class.to_s.tableize, pos: nil }
+
+%hr
+%p
+  - if @player.fantasy_team.nil?
+    = render partial: "roster_spot", locals: { roster_spot: RosterSpot.new(contract: "A", salary: "1", fantasy_team_id: nil),
+                                               player: @player,
+                                               action: "assign_roster" }
+  - else
+    %em Already on #{@player.fantasy_team.owner}'s team
+    = render partial: "roster_spot", locals: { roster_spot: @player.roster_spot,
+                                               player: @player,
+                                               action: "update_roster" }
