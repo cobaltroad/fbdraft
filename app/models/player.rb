@@ -93,12 +93,9 @@ class Player < CouchRest::Model::Base
         self.proj_view(property, pos).values
       end
 
-      def self.average(property, pos=nil)
-        self.proj_view(property, pos).reduce.values[0]['mean']
-      end
-
-      def self.stdev(property, pos=nil)
-        self.proj_view(property, pos).reduce.values[0]['stdev']
+      def self.avg_stdev(property)
+        statistics = self.proj_view(property, nil).reduce.values[0]
+        return statistics['mean'], statistics['stdev']
       end
 
       def self.team_view(team=nil)

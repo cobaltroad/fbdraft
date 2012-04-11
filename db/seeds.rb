@@ -1,4 +1,4 @@
-Hitter.database.bulk_save( Hitter.all.each { |doc| doc['_deleted'] = true } )
+Hitter.delete_all
 
 hitter_file = File.open("db/batters.csv", "r")
 hitter_csv = hitter_file.read
@@ -46,7 +46,7 @@ Hitter.database.bulk_save(hitter_docs)
 
 Hitter.build_norms_and_reindex
 
-Pitcher.database.bulk_save( Pitcher.all.each { |doc| doc['_deleted'] = true } )
+Pitcher.delete_all
 
 pitcher_file = File.open("db/pitchers.csv","r")
 pitcher_csv = pitcher_file.read
