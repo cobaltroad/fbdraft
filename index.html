@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>FBDraft by cobaltroad</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/cobaltroad/fbdraft">Fork Me on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>FBDraft</h1>
+            <h2>Fantasy Baseball Draft Engine</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/cobaltroad/fbdraft/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/cobaltroad/fbdraft/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+      <span class="banner-fix"></span>
+
+      <section id="main_content">
+        <h1>Fantasy Baseball Auction</h1>
+
+<p>This is a web-app that imports CSV projections of hitters and pitchers and
+presents them in a sortable manner so that they may be assigned to fantasy teams.</p>
+
+<p>The players, upon ingestion, are analyzed individually and in aggregate to determine
+a player rating based on their projected statistical performance.  This rating
+is then used to calculate a market value for use in a fantasy baseball auction.</p>
+
+<h1>Requirements</h1>
+
+<p>The app makes heavy use of <em>CouchDB</em> as a document store and as a map-reduce engine.</p>
+
+<p>Search is accomplished via <em>sunspot-solr</em>, which is definitely overkill.</p>
+
+<h1>Configuration</h1>
+
+<p>The <code>fbdraft.yml</code> file contains the parameters that will be used to construct
+global constants used throughout the application.</p>
+
+<p>If running multiple environments using this application (one for the AL and one for 
+the NL, for instance), then it will be necessary to have the Rails asset pipeline
+properly configured so that <em>Twitter Bootstrap</em> loads the proper components.</p>
+
+<h1>Initialization</h1>
+
+<p>The <code>db/seeds.rb</code> file contains the script that will be used to import the CSV projection
+data and map it onto the Couch model.  Once all players have been input, then
+statistical analysis will begin of the whole player population and the players are then
+assigned ratings.  Once all the players have been rated, another round of updates will
+apply auction dollar values to each player.</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/cobaltroad">cobaltroad</a> can be found on <a href="https://github.com/cobaltroad/fbdraft">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
